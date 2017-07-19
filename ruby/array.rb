@@ -19,11 +19,21 @@ def array
   print"Shift the first element:\n"
   p arr
 
-  a= arr.find(2)
+  arr << ("a")
+  p arr
+  p arr.size
+end
+
+
+def jagged_array
+  a = Array.new(6){|i| i=Array.new(5){|i| i=0} }
+  a[0][2] += 1
   p a
 end
 
-array
 
+
+array
+jagged_array
 
 
