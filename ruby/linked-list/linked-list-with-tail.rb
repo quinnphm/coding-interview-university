@@ -8,46 +8,53 @@ class Node
 end
 
 class LinkedList
-  attr_accessor :head
-  def initialize value
-    @head = Node.new value, nil
+  attr_accessor :head, :tail
+  def initialize
+    @head = nil
+    @tail = nil
   end
 
-  def PushFront value
+  def push_front value
     new_node = Node.new value, @head
     @head = new_node
+    unless @tail
+      @tail = new_node
+    end
   end
 
-  def PopFront
+  def top_front
+    @head
+  end
+
+  def pop_front
     @head = @head.next_node
+    unless @head
+      @tail = nil
+    end
   end
 
-  def PushBack value
+  def push_back value
     new_node = Node.new value, nil
-
-    current = @head
-    while current.next_node != nil
-      current = current.next_node
+    if @tail
+      @tail.next_node = new_node
+      @tail = new_node
+    else
+      self.push_front value
     end
 
-    current.next_node = new_node
   end
 
-  def PopBack
-    last = @head
-    while last.next_node != nil
-      last = last.next_node
-    end
-
+  def pop_back
     current = @head
-    while current.next_node != last
+    while current.next_node != @tail
       current = current.next_node
     end
 
     current.next_node = nil
+    @tail = current
   end
 
-  def AddAfter node, value
+  def add_after node, value
     current = @head
     while current.value != node
       current = current.next_node
@@ -56,7 +63,7 @@ class LinkedList
     current.next_node = new_node
   end
 
-  def Contains value
+  def contains value
     found = false
     current = @head
     while current && not(found)
@@ -70,7 +77,7 @@ class LinkedList
     return found
   end
 
-  def DeleteValue value
+  def delete_value value
     current = @head
     prev = nil
     while current != nil
@@ -90,42 +97,3 @@ class LinkedList
 
 end
 
-
-ll = LinkedList.new(5)
-print "Linked-list created:\n"
-p ll
-
-ll.PushFront(4)
-ll.PushFront(3)
-ll.PushFront(2)
-ll.PushFront(1)
-print "Put front with value 1:\n"
-p ll
-
-
-ll.PopFront
-print "Pop front:\n"
-p ll
-
-ll.PushBack(6)
-print "Push back with value 6:\n"
-p ll
-
-ll.PopBack
-print "Pop back:\n"
-p ll
-
-ll.AddAfter(4,10)
-print "Add 10 after 4:\n"
-p ll
-
-print "Linked-list contains 12?\n"
-p ll.Contains(12)
-
-print "Linked-list contains 2?\n"
-p ll.Contains(2)
-
-
-print "Delete 10:\n"
-ll.DeleteValue(10)
-p ll
