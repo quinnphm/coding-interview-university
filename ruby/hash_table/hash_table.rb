@@ -4,7 +4,7 @@ require 'prime'
 BASE = 256
 
 class HashTable
-  attr_accessor :data, :size
+  attr_accessor :data, :size, :count
 
   def initialize
     @data = Hash.new {|hash,key| hash[key]= LinkedList.new}
@@ -71,6 +71,4 @@ s = gets.chomp.to_s #get the string
 s_len = s.length #string length
 m = h.get_prime(s_len) #get the prime m
 h.load_text("text.txt", m)
-p h.size
-p m
 p h.search(s, m)

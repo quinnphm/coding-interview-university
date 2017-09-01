@@ -5,9 +5,11 @@ found = false
 File.open("text.txt", "r") do |file|
   file.each_line do |line|
     words = line.split " "
-    if words.include?(s)
-      found = true
-      break
+    words.each do |w|
+      if w == s
+        found = true
+        break
+      end
     end
   end
 end
